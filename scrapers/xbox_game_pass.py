@@ -41,7 +41,7 @@ def get_xbox_game_pass_data():
         os.makedirs(output_dir)
 
     output_file = os.path.join(output_dir, "xbox_game_pass.csv")
-    df.to_csv(output_file, index=False)
+    df.to_csv(output_file, index=False, encoding="utf-8-sig")
     print(f"Data saved to {output_file}")
 
     return df

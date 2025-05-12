@@ -6,6 +6,8 @@ import pandas as pd
 from scrapers.xbox_game_pass import get_xbox_game_pass_data
 from scrapers.crossplay_games import get_crossplay_games
 from scrapers.ps_plus import get_ps_plus_data
+from comparators.common_crossplay import compare_common_games
+
 
 def ensure_output_directory():
     os.makedirs("outputs", exist_ok=True)
@@ -24,6 +26,10 @@ def run_pipeline():
     # Fetch PlayStation Plus catalog
     ps_df = get_ps_plus_data()
     print(f"Fetched {len(ps_df)} PlayStation Plus games")
+
+    # Compare all scrapped data and find common games
+    compare_common_games(xbox_df, ps_df, crossplay_df, "outputs/common_crossplay_ps_xbox.xlsx")
+
 
     print("Data scraping pipeline completed successfully.")
 

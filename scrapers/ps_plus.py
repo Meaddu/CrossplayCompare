@@ -24,5 +24,5 @@ def get_ps_plus_data():
         data.append({"Title": title, "Platforms": platforms, "Link": link})
 
     df = pd.DataFrame(data)
-    df.to_csv("outputs/playstation_plus_catalog.csv", index=False)
+    df.to_csv("outputs/playstation_plus_catalog.csv", index=False, encoding="utf-8-sig")
     return df

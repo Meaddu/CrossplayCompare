@@ -22,5 +22,5 @@ def get_crossplay_games():
             data.append({"Title": title, "Link": link})
 
     df = pd.DataFrame(data)
-    df.to_csv("outputs/xbox_ps5_crossplay.csv", index=False)
+    df.to_csv("outputs/xbox_ps5_crossplay.csv", index=False, encoding="utf-8-sig")
     return df
