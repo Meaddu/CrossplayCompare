@@ -18,6 +18,7 @@ def run_pipeline():
     xbox_df = get_xbox_game_pass_data()
     xbox_df['NormalizedTitle'] = xbox_df['Title'].str.strip().str.lower()
     xbox_df = xbox_df.drop_duplicates(subset='NormalizedTitle').drop(columns='NormalizedTitle')
+    xbox_df = xbox_df[['Title']]
     xbox_df.to_csv("outputs/xbox_game_pass.csv", index=False, encoding="utf-8-sig")
     print(f"Fetched {len(xbox_df)} Xbox Game Pass games")
 
@@ -25,6 +26,7 @@ def run_pipeline():
     crossplay_df = get_crossplay_games()
     crossplay_df['NormalizedTitle'] = crossplay_df['Title'].str.strip().str.lower()
     crossplay_df = crossplay_df.drop_duplicates(subset='NormalizedTitle').drop(columns='NormalizedTitle')
+    crossplay_df = crossplay_df[['Title']]
     crossplay_df.to_csv("outputs/xbox_ps5_crossplay.csv", index=False, encoding="utf-8-sig")
     print(f"Fetched {len(crossplay_df)} Xbox–PS5 crossplay games")
 
@@ -32,6 +34,7 @@ def run_pipeline():
     ps_df = get_ps_plus_data()
     ps_df['NormalizedTitle'] = ps_df['Title'].str.strip().str.lower()
     ps_df = ps_df.drop_duplicates(subset='NormalizedTitle').drop(columns='NormalizedTitle')
+    ps_df = ps_df[['Title']]
     ps_df.to_csv("outputs/playstation_plus_catalog.csv", index=False, encoding="utf-8-sig")
     print(f"Fetched {len(ps_df)} PlayStation Plus games")
 
