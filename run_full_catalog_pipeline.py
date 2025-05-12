@@ -39,7 +39,7 @@ def run_pipeline():
     print(f"Fetched {len(ps_df)} PlayStation Plus games")
 
     # Compare and export intersection
-    compare_common_games(xbox_df, ps_df, crossplay_df, "outputs/common_crossplay_ps_xbox.xlsx")
+    compare_common_games(xbox_df, ps_df, crossplay_df, "outputs/common_crossplay_ps_xbox.csv")
 
     print("Data scraping and comparison pipeline completed successfully.")
 
