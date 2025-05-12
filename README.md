@@ -1,5 +1,3 @@
----
-
 ## CrossplayCompare
 
 **CrossplayCompare** is a data scraping and comparison utility that aggregates game listings from:
