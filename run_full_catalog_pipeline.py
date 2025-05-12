@@ -7,9 +7,24 @@ from scrapers.xbox_game_pass import get_xbox_game_pass_data
 from scrapers.crossplay_games import get_crossplay_games
 from scrapers.ps_plus import get_ps_plus_data
 from comparators.common_crossplay import compare_common_games
+from utils.metacritic import get_metacritic_score
+import time
 
 def ensure_output_directory():
     os.makedirs("outputs", exist_ok=True)
+
+def append_metacritic_scores(csv_path):
+    print(f"Reading data from {csv_path}")
+    df = pd.read_csv(csv_path, encoding="utf-8-sig")
+    scores = []
+    for title in df['Title']:
+        print(f"Fetching score for: {title}")
+        score = get_metacritic_score(title)
+        scores.append(score)
+        time.sleep(1)
+    df['MetacriticScore'] = scores
+    df.to_csv(csv_path, index=False, encoding="utf-8-sig")
+    print(f"Appended Metacritic scores to {csv_path}")
 
 def run_pipeline():
     ensure_output_directory()
@@ -40,6 +55,9 @@ def run_pipeline():
 
     # Compare and export intersection
     compare_common_games(xbox_df, ps_df, crossplay_df, "outputs/common_crossplay_ps_xbox.csv")
+
+    # Add Metacritic scores to the common games
+    append_metacritic_scores("outputs/common_crossplay_ps_xbox.csv")
 
     print("Data scraping and comparison pipeline completed successfully.")
 
