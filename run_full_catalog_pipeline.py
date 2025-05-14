@@ -8,6 +8,7 @@ from scrapers.crossplay_games import get_crossplay_games
 from scrapers.ps_plus import get_ps_plus_data
 from comparators.common_crossplay import compare_common_games
 from utils.metacritic import get_metacritic_score
+from utils.metacritic_enricher import enrich_with_metacritic
 import time
 
 def ensure_output_directory():
@@ -44,6 +45,12 @@ def run_pipeline():
     crossplay_df = crossplay_df[['Title']]
     crossplay_df.to_csv("outputs/xbox_ps5_crossplay.csv", index=False, encoding="utf-8-sig")
     print(f"Fetched {len(crossplay_df)} Xbox–PS5 crossplay games")
+
+    #Append Metacritic score to Xbox-PS5 Crossplay List
+    enrich_with_metacritic(
+        input_csv_path="outputs/xbox_ps5_crossplay.csv",
+        output_csv_path="outputs/xbox_ps5_crossplay_scored.csv"
+    )
 
     # Fetch PlayStation Plus catalog
     ps_df = get_ps_plus_data()
